@@ -5,44 +5,65 @@
 package com.example.UsersNews.Service;
 
 import com.example.UsersNews.Entity.Commentary;
-import com.example.UsersNews.Repo.CommentaryInterface;
-import java.util.List;
-import java.util.Optional;
-
+import com.example.UsersNews.Entity.Item;
+import com.example.UsersNews.Entity.User;
+import com.example.UsersNews.Repo.CommentaryJPA;
+import com.example.UsersNews.Repo.CommentaryRepo;
+import com.example.UsersNews.Repo.ItemRepo;
+import com.example.UsersNews.Repo.UserRepo;
+import com.example.UsersNews.util.BeanUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.text.MessageFormat;
+import java.util.List;
+
 /**
  *
  * @author e.gruzinceva
  */
 @Service
 @RequiredArgsConstructor
-public class CommentaryService implements CommentaryInterface {
-    
-   @Autowired
-   private CommentaryInterface commentatyInterface;
+public class CommentaryService implements CommentaryRepo {
 
-
-   @Override
-   public List<Commentary> findAll() {
-      return List.of();
-   }
+    private final CommentaryJPA commentaryJPA;
+    private  final ItemRepo itemRepo;
+    private final UserRepo userRepo;
 
     @Override
-    public <S extends Commentary> S save(S entity) {
-        return null;
+    public List<Commentary> findAll() {
+        return commentaryJPA.findAll();
     }
 
     @Override
-   public void deleteById(Integer integer) {
-
-   }
-
-    @Override
-    public Optional<Commentary> findById(Integer integer) {
-        return Optional.empty();
+    public Commentary findById(Integer id) {
+        return commentaryJPA.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(MessageFormat.format("ID {0} не найден", id)));
     }
 
+    @Override
+    public Commentary save(Commentary commentary) {
+Item item = itemRepo.findById(commentary.getItem().getId());
+User user = userRepo.findById(commentary.getUser().getId());
+commentary.setItem(item);
+        commentary.setUser(user);
+        return commentaryJPA.save(commentary);
+    }
 
+    @Override
+    public Commentary update(Commentary commentary) {
+        Item item = itemRepo.findById(commentary.getItem().getId());
+        User user = userRepo.findById(commentary.getUser().getId());
+        Commentary ecomment = findById(commentary.getId());
+        BeanUtils.copyNonNullProperties(commentary, ecomment);
+        ecomment.setUser(user);
+        ecomment.setItem(item);
+        return commentaryJPA.save(ecomment);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        commentaryJPA.deleteById(id);
+    }
 }

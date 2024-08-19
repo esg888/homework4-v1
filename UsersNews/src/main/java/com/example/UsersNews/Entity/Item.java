@@ -5,14 +5,10 @@
 package com.example.UsersNews.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
@@ -31,8 +27,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
           
-     @Column(name = "deatails")
-    private  String deatails;
+     @Column(name = "details")
+    private  String details;
 
       @ManyToOne
     @JoinColumn(name = "user_id")

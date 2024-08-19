@@ -4,7 +4,7 @@
  */
 package com.example.UsersNews.Controller;
 
-import com.example.UsersNews.Repo.UserInterface;
+import com.example.UsersNews.Repo.UserJPA;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ import org.springframework.data.domain.PageRequest;
 @RequiredArgsConstructor
         public class UserController {
     
-    private final UserInterface userInterface; 
+    private final UserJPA userInterface;
     
     @GetMapping
     public Page <User> getAll(

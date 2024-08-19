@@ -5,12 +5,14 @@
 package com.example.UsersNews.Service;
 
 import com.example.UsersNews.Entity.User;
-import com.example.UsersNews.Repo.UserInterface;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.UsersNews.Err.EntityNotFoundException;
+import com.example.UsersNews.Repo.UserJPA;
+import com.example.UsersNews.Repo.UserRepo;
+import com.example.UsersNews.util.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  *
@@ -18,13 +20,36 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
-public class UserService implements UserInterface{
+public class UserService implements UserRepo {
 
- @Autowired
-private  UserInterface userInterface;
+private UserJPA userJPA;
 
 
-    
-
-    
+    @Override
+    public List<User> findAll() {
+        return userJPA.findAll();
     }
+
+    @Override
+    public User findById(Integer id) {
+        return userJPA.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(MessageFormat.format("ID {0} не найден", id)));
+    }
+
+    @Override
+    public User save(User user) {
+            return userJPA.save(user);
+    }
+
+    @Override
+    public User update(User user) {
+        User eUser = findById(user.getId());
+        BeanUtils.copyNonNullProperties(user, eUser);
+        return userJPA.save(eUser);
+    }
+
+    @Override
+    public void delete(Integer id) { userJPA.deleteById(id);
+
+    }
+}

@@ -12,7 +12,7 @@ import com.example.UsersNews.Entity.Commentary;
  * @author e.gruzinceva
  */
 @Repository
-public interface CommentaryInterface extends JpaRepository<Commentary, Integer>{
+public interface CommentaryJPA extends JpaRepository<Commentary, Integer>{
   
     
 }
