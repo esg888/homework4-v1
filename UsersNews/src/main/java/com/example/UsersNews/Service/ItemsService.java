@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
 @Service
-public class ItemService implements ItemRepo {
+@RequiredArgsConstructor
+public class ItemsService implements ItemRepo {
 
     private final ItemJPA itemJPA;
     private final UserService userService;
@@ -52,5 +54,5 @@ public class ItemService implements ItemRepo {
     }
 
     @Override
-    public void delate(Integer id) { itemJPA.deleteById(id);}
+    public void delete(Integer id) { itemJPA.deleteById(id);}
 }

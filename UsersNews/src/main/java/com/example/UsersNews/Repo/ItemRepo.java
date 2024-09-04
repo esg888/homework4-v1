@@ -14,6 +14,6 @@ Item save (Item item);
 
 Item update (Item item);
 
-void delate (Integer id);
+void delete (Integer id);
 
 }

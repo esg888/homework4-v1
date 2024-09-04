@@ -1,4 +1,4 @@
-package web;
+package com.example.UsersNews.web;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +10,12 @@ public class CommentRequest {
 
     @NotNull(message = "ID  должно быть указано")
     @Positive(message = "ID должно быть больше 0!")
-    private Integer commentaryId;
+    private Integer itemId;
+
+    @NotNull(message = "ID  должно быть указано")
+    @Positive(message = "ID должно быть больше 0!")
+    private Integer userId;
+
 
     @NotBlank(message = "Заполните текст коммента")
     private  String text;

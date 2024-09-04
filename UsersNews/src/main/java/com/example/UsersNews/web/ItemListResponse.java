@@ -1,4 +1,4 @@
-package web;
+package com.example.UsersNews.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThemeListResponse {
+public class ItemListResponse {
 
-    private List<ThemeResponse> themes = new ArrayList<>();
+    private List<ItemResponse> items = new ArrayList<>();
 }

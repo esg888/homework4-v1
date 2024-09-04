@@ -3,18 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.UsersNews.Controller;
-
-import com.example.UsersNews.Repo.UserJPA;
+import com.example.UsersNews.Entity.User;
+import com.example.UsersNews.Mapper.UserMapper;
+import com.example.UsersNews.Service.ThemeService;
+import com.example.UsersNews.Service.UserService;
+import com.example.UsersNews.web.UserListResponse;
+import com.example.UsersNews.web.UserRequest;
+import com.example.UsersNews.web.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.data.domain.Page;
-import com.example.UsersNews.Entity.User;
-import jakarta.validation.constraints.Min;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 
 
 /**
@@ -25,18 +27,35 @@ import org.springframework.data.domain.PageRequest;
 @RequestMapping("api/user")
 @RequiredArgsConstructor
         public class UserController {
-    
-    private final UserJPA userInterface;
-    
-    @GetMapping
-    public Page <User> getAll(
-            @RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
-            @RequestParam (value = "limit", defaultValue = "20") Integer limit
-    )
-    {
-        return  userInterface.findAll(PageRequest.of(offset, limit));
-    }
-        
-    
-    
+
+private final UserMapper userMapper;
+private final UserService userService;
+
+        @GetMapping
+        public ResponseEntity<UserListResponse> findAll(){
+                List<User> users = userService.findAll();
+                return ResponseEntity.ok(userMapper.userListResponseList(users));
+                        }
+        @GetMapping("/{id}")
+        public ResponseEntity <UserResponse> findById(@PathVariable Integer id) {
+                return ResponseEntity.ok(userMapper.userToResponse(userService.findById(id)));
+                        }
+        @PostMapping
+        public  ResponseEntity <UserResponse> create (@RequestBody UserRequest request){
+                User user = userService.save(userMapper.requestToUser(request));
+                return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.userToResponse(user));
+                        }
+
+        @PutMapping("/{id}")
+        public ResponseEntity <UserResponse> update (@PathVariable("id")
+                                                     Integer userId, @RequestBody UserRequest request){
+                User upUser = userService.update(userMapper.requestToUser(userId, request));
+                return ResponseEntity.ok(userMapper.userToResponse(upUser));
+                    }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> delete(@PathVariable Integer id){
+                userService.delete(id);
+                return ResponseEntity.noContent().build();
+        }
 }

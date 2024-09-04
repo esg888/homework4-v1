@@ -1,4 +1,4 @@
-package web;
+package com.example.UsersNews.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemListResponse {
-
-    private List<ItemResponse> items = new ArrayList<>();
+public class ItemResponse {
+    private int id;
+    private  String details;
+    private List<CommentResponse> commentarys = new ArrayList<>();
 }
