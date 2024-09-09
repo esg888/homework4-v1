@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="UsersNews/build/generated/sources/annotationProcessor/java/main"/>
+	<classpathentry kind="src" path="UsersNews/src/main/java"/>
+	<classpathentry kind="src" path="UsersNews/src/test/java"/>
+	<classpathentry kind="lib" path="UsersNews/build/libs/UsersNews-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="UsersNews/build/libs/UsersNews-0.0.1-SNAPSHOT-plain.jar"/>
+	<classpathentry kind="lib" path="UsersNews/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="UsersNews/build/classes/java/main"/>
+</classpath>
