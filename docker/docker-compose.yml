@@ -6,8 +6,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=12345
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=btest
     volumes:
-      - ./init.sql:/dogcker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

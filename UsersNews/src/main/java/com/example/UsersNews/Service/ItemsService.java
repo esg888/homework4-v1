@@ -7,6 +7,7 @@ import com.example.UsersNews.Err.EntityNotFoundException;
 import com.example.UsersNews.Repo.ItemJPA;
 import com.example.UsersNews.Repo.ItemRepo;
 import com.example.UsersNews.util.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -18,8 +19,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemsService implements ItemRepo {
 
+    @Autowired
     private final ItemJPA itemJPA;
+    @Autowired
     private final UserService userService;
+    @Autowired
     private final ThemeService themeService;
 
     @Override

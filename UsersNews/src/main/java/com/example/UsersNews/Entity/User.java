@@ -24,12 +24,12 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Entity(name = "user")
+@Entity(name = "users")
 public class User {
     
      @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-           private int id;
+           private Integer id;
      
      @Column(name = "name")
     private String name;

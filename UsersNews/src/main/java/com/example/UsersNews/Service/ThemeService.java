@@ -5,6 +5,7 @@ import com.example.UsersNews.Err.EntityNotFoundException;
 import com.example.UsersNews.Repo.ThemeJPA;
 import com.example.UsersNews.Repo.ThemeRepo;
 import com.example.UsersNews.util.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class ThemeService implements ThemeRepo {
 
+    @Autowired
     private ThemeJPA themeJPA;
 
     @Override

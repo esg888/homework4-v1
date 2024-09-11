@@ -14,6 +14,7 @@ import com.example.UsersNews.Repo.UserRepo;
 import com.example.UsersNews.util.BeanUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -27,8 +28,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentaryService implements CommentaryRepo {
 
+    @Autowired
     private final CommentaryJPA commentaryJPA;
+
+    @Autowired
     private  final ItemRepo itemRepo;
+    @Autowired
     private final UserRepo userRepo;
 
     @Override
