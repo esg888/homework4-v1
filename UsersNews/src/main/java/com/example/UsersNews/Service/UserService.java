@@ -10,6 +10,9 @@ import com.example.UsersNews.Repo.UserJPA;
 import com.example.UsersNews.Repo.UserRepo;
 import com.example.UsersNews.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -27,10 +30,21 @@ public class UserService implements UserRepo {
 private UserJPA userJPA;
 
 
-    @Override
-    public List<User> findAll() {
-        return userJPA.findAll();
+    public List <User> findAll(){
+        return
+        userJPA.findAllUsers(PageRequest.of(0, 2)).getContent();
     }
+
+//    @Override
+//    public List <User> findAll(Integer n, Integer s){
+//
+//        Pageable pageable = PageRequest.of(n, s);
+//
+//        Page<User> pageUs = userJPA.findAllUsers(n, s, pageable);
+//
+//        return
+//                pageUs.getContent();
+//    }
 
     @Override
     public User findById(Integer id) {

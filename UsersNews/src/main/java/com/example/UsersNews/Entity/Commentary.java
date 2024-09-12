@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.UsersNews.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,11 +35,13 @@ public class Commentary {
            @ManyToOne
     @JoinColumn(name = "user_id")
     @ToString.Exclude
+           @JsonIgnore
     private User user;
            
                    @ManyToOne
     @JoinColumn(name ="item_id" )
             @ToString.Exclude
+                   @JsonIgnore
                private Item item;
     
 }

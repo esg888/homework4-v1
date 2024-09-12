@@ -11,4 +11,5 @@ public interface UserRepo {
     User save (User user);
     User update (User user);
     void delete (Integer id);
+
 }

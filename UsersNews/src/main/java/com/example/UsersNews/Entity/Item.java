@@ -4,6 +4,7 @@
  */
 package com.example.UsersNews.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,11 +34,15 @@ public class Item {
       @ManyToOne
     @JoinColumn(name = "user_id")
     @ToString.Exclude
+      @JsonIgnore
     private User user;
+
+
       
         @ManyToOne
     @JoinColumn(name ="theme_id" )
             @ToString.Exclude
+        @JsonIgnore
         private Theme theme;
         
               @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
