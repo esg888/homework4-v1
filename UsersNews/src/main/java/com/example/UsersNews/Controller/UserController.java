@@ -5,11 +5,12 @@
 package com.example.UsersNews.Controller;
 import com.example.UsersNews.Entity.User;
 import com.example.UsersNews.Mapper.UserMapper;
-import com.example.UsersNews.Service.ThemeService;
 import com.example.UsersNews.Service.UserService;
+import com.example.UsersNews.different.PageFilter;
 import com.example.UsersNews.web.UserListResponse;
 import com.example.UsersNews.web.UserRequest;
 import com.example.UsersNews.web.UserResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ private final UserMapper userMapper;
 private final UserService userService;
 
         @GetMapping
-        public ResponseEntity<UserListResponse> findAll(){
-                List<User> users = userService.findAll();
+        public ResponseEntity<UserListResponse> findAll(@Valid PageFilter pageFilter){
+                List<User> users = userService.findAll(pageFilter);
                 return ResponseEntity.ok(userMapper.userListResponseList(users));
                         }
         @GetMapping("/{id}")

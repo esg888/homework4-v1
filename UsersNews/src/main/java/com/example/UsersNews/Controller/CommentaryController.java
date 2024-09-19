@@ -1,9 +1,10 @@
 package com.example.UsersNews.Controller;
 import com.example.UsersNews.Mapper.CommentMapper;
 import com.example.UsersNews.Service.CommentaryService;
+import com.example.UsersNews.different.PageFilter;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class CommentaryController {
     private final CommentMapper commentMapper;
     
     @GetMapping
-    public ResponseEntity <CommentListResponse> findAll() {
-        return ResponseEntity.ok(commentMapper.commentListToCommentListResponse(commentaryService.findAll()));
+    public ResponseEntity <CommentListResponse> findAll(@Valid PageFilter pageFilter) {
+        return ResponseEntity.ok(commentMapper.commentListToCommentListResponse(commentaryService.findAll(pageFilter)));
     }
     
      @GetMapping("/{id}")

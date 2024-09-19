@@ -1,8 +1,10 @@
 package com.example.UsersNews.Controller;
 import com.example.UsersNews.Entity.Item;
-import com.example.UsersNews.web.CommentRequest;
+import com.example.UsersNews.different.PageFilter;
+import com.example.UsersNews.valid.PageFilterValid;
 import com.example.UsersNews.web.ItemRequest;
 import com.example.UsersNews.web.ItemResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +24,14 @@ public class ItemController {
     private final ItemsService itemsService;
     
     @GetMapping
-    public ResponseEntity<ItemListResponse> findAll(){
-        List<Item> items = itemsService.findAll();
+    public ResponseEntity<ItemListResponse> findAll(@Valid PageFilter pageFilter){
+        List<Item> items = itemsService.findAll(pageFilter);
       return ResponseEntity.ok(itemMapper.itemListToResponseList(items));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<ItemListResponse> filterBy(@Valid PageFilter pageFilter) {
+        return ResponseEntity.ok(itemMapper.itemListToResponseList(itemsService.findFilter(pageFilter)));
     }
 
     @GetMapping("/{id}")

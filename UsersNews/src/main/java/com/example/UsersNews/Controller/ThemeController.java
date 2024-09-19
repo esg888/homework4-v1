@@ -2,9 +2,11 @@ package com.example.UsersNews.Controller;
 import com.example.UsersNews.Entity.Theme;
 import com.example.UsersNews.Mapper.ThemeMapper;
 import com.example.UsersNews.Service.ThemeService;
+import com.example.UsersNews.different.PageFilter;
 import com.example.UsersNews.web.ThemeListResponse;
 import com.example.UsersNews.web.ThemeRequest;
 import com.example.UsersNews.web.ThemeResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +24,8 @@ public class ThemeController {
     private final ThemeMapper themeMapper;
 
     @GetMapping
-    public ResponseEntity<ThemeListResponse> findAll(){
-        List<Theme> themes = themeService.findAll();
+    public ResponseEntity<ThemeListResponse> findAll(@Valid PageFilter pageFilter){
+        List<Theme> themes = themeService.findAll(pageFilter);
         return ResponseEntity.ok(themeMapper.themeListResponseList(themes));
     }
 
