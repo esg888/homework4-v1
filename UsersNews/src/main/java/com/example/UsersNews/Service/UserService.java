@@ -8,15 +8,15 @@ import com.example.UsersNews.Entity.User;
 import com.example.UsersNews.Err.EntityNotFoundException;
 import com.example.UsersNews.Repo.UserJPA;
 import com.example.UsersNews.Repo.UserRepo;
+import com.example.UsersNews.different.PageFilter;
 import com.example.UsersNews.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.text.MessageFormat;
 import java.util.List;
+import java.text.MessageFormat;
 
 /**
  *
@@ -30,21 +30,28 @@ public class UserService implements UserRepo {
 private UserJPA userJPA;
 
 
-    public List <User> findAll(){
-        return
-        userJPA.findAllUsers(PageRequest.of(0, 2)).getContent();
-    }
+//    @Override
+//    public List <User> findAll(){
+//        return
+//        userJPA.findAllUsers(PageRequest.of(0, 2)).getContent();
+//    }
+
 
 //    @Override
 //    public List <User> findAll(Integer n, Integer s){
-//
-//        Pageable pageable = PageRequest.of(n, s);
-//
-//        Page<User> pageUs = userJPA.findAllUsers(n, s, pageable);
-//
-//        return
-//                pageUs.getContent();
+//        Pageable paging = PageRequest.of(n, s);
+//        Page<User> p = userJPA.findAll(paging);
+//        return p.getContent();
 //    }
+    @Override
+    public List <User> findAll(PageFilter cp){
+        Integer n = cp.getNum();
+        Integer s = cp.getSize();
+        Pageable paging = PageRequest.of(n, s);
+        Page<User> p = userJPA.findAll(paging);
+        return p.getContent();
+    }
+
 
     @Override
     public User findById(Integer id) {

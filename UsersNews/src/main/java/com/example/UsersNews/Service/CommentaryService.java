@@ -11,10 +11,14 @@ import com.example.UsersNews.Repo.CommentaryJPA;
 import com.example.UsersNews.Repo.CommentaryRepo;
 import com.example.UsersNews.Repo.ItemRepo;
 import com.example.UsersNews.Repo.UserRepo;
+import com.example.UsersNews.different.PageFilter;
 import com.example.UsersNews.util.BeanUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -36,10 +40,18 @@ public class CommentaryService implements CommentaryRepo {
     @Autowired
     private final UserRepo userRepo;
 
-    @Override
-    public List<Commentary> findAll() {
-        return commentaryJPA.findAll();
-    }
+//    @Override
+//    public List<Commentary> findAll() {
+//        return commentaryJPA.findAll();
+//    }
+@Override
+public List<Commentary> findAll(PageFilter cp){
+    Integer n = cp.getNum();
+    Integer s = cp.getSize();
+    Pageable paging = PageRequest.of(n, s);
+    Page<Commentary> p = commentaryJPA.findAll(paging);
+    return p.getContent();
+}
 
     @Override
     public Commentary findById(Integer id) {
