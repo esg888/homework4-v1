@@ -3,6 +3,7 @@ package com.example.UsersNews.Service;
 import com.example.UsersNews.Entity.Item;
 import com.example.UsersNews.Entity.Theme;
 import com.example.UsersNews.Entity.User;
+import com.example.UsersNews.Err.CheckUserException;
 import com.example.UsersNews.Err.EntityNotFoundException;
 import com.example.UsersNews.Repo.ItemJPA;
 import com.example.UsersNews.Repo.ItemRepo;
@@ -14,9 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.example.UsersNews.aop.CheckingIt;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,7 +50,6 @@ public class ItemsService implements ItemRepo {
 
     @Override
     public List<Item> findFilter(PageFilter pageFilter) {
-
         return itemJPA.findAll(ItemSpecification.withFilter(pageFilter),
                 PageRequest.of(
                         pageFilter.getNum(), pageFilter.getSize()
@@ -80,6 +82,25 @@ public class ItemsService implements ItemRepo {
         return itemJPA.save(eItem);
     }
 
+//    @Override
+//    public void delete(Integer id) { itemJPA.deleteById(id);}
+
     @Override
-    public void delete(Integer id) { itemJPA.deleteById(id);}
+   @CheckingIt
+    public void delete(Integer itemId, Integer ownerId) {
+            itemJPA.deleteById(itemId);}
+
+    @Override
+    public void checkIt(Integer itemId, Integer ownerId) {
+
+       Item item = findById(itemId);
+        User user = item.getUser();
+        Integer userId = user.getId();
+
+         if(!Objects.equals(ownerId, userId)){
+            throw new CheckUserException("чужое");
+        }
+    }
+
+
 }

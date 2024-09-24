@@ -1,5 +1,6 @@
 package com.example.UsersNews.Controller;
 import com.example.UsersNews.Entity.Item;
+
 import com.example.UsersNews.different.PageFilter;
 import com.example.UsersNews.valid.PageFilterValid;
 import com.example.UsersNews.web.ItemRequest;
@@ -52,9 +53,10 @@ Item upItem = itemsService.update(itemMapper.requestToItem(itemId, request));
         return ResponseEntity.ok(itemMapper.itemToResponse(upItem));
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        itemsService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer id, Integer idOw){
+        itemsService.delete(id, idOw);
         return ResponseEntity.noContent().build();
     }
 

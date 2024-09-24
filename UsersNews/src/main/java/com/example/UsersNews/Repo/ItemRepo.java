@@ -1,6 +1,7 @@
 package com.example.UsersNews.Repo;
 
 import com.example.UsersNews.Entity.Item;
+
 import com.example.UsersNews.different.PageFilter;
 
 import java.util.List;
@@ -18,6 +19,10 @@ Item save (Item item);
 
 Item update (Item item);
 
-void delete (Integer id);
+//void delete (Integer id);
+
+void delete (Integer itemId, Integer ownerId);
+
+void checkIt(Integer itemId, Integer ownerId);
 
 }
