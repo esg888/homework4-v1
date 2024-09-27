@@ -1,18 +1,18 @@
 package com.example.UsersNews.Mapper;
 
 import com.example.UsersNews.Entity.Commentary;
-import com.example.UsersNews.Repo.ItemRepo;
-import com.example.UsersNews.Repo.UserRepo;
+import com.example.UsersNews.Service.UserService;
+import com.example.UsersNews.Service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.UsersNews.web.CommentRequest;
 
 public abstract class CommentMapperDelegate implements CommentMapper {
 
     @Autowired
-    UserRepo userRepo;
+    UserService userService;
 
     @Autowired
-    ItemRepo itemRepo;
+    ItemsService itemsService;
 
     @Override
     public Commentary requestToCommentary(Integer commentId, CommentRequest commentRequest) {
@@ -25,8 +25,8 @@ public abstract class CommentMapperDelegate implements CommentMapper {
     public Commentary requestToCommentary(CommentRequest commentRequest) {
         Commentary comment = new Commentary();
         comment.setText(commentRequest.getText());
-        comment.setUser(userRepo.findById(commentRequest.getUserId()));
-        comment.setItem(itemRepo.findById(commentRequest.getItemId()));
+        comment.setUser(userService.findById(commentRequest.getUserId()));
+        comment.setItem(itemsService.findById(commentRequest.getItemId()));
         return comment;
     }
 }

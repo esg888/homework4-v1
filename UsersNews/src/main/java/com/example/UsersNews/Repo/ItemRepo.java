@@ -17,12 +17,13 @@ Item findById (Integer id);
 
 Item save (Item item);
 
-Item update (Item item);
+Item update (Item item, Integer ownerId);
+   // Item update (Item item);
 
 //void delete (Integer id);
 
 void delete (Integer itemId, Integer ownerId);
 
 void checkIt(Integer itemId, Integer ownerId);
-
+    void CheckUpd (Item item, Integer ownerId);
 }

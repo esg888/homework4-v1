@@ -72,7 +72,8 @@ public class ItemsService implements ItemRepo {
     }
 
     @Override
-    public Item update(Item item) {
+    @CheckingIt
+    public Item update(Item item, Integer ownerId) {
         User user = userService.findById(item.getUser().getId());
         Theme theme = themeService.findById(item.getTheme().getId());
        Item eItem = findById(item.getId());
@@ -82,8 +83,7 @@ public class ItemsService implements ItemRepo {
         return itemJPA.save(eItem);
     }
 
-//    @Override
-//    public void delete(Integer id) { itemJPA.deleteById(id);}
+
 
     @Override
    @CheckingIt
@@ -96,9 +96,18 @@ public class ItemsService implements ItemRepo {
        Item item = findById(itemId);
         User user = item.getUser();
         Integer userId = user.getId();
-
          if(!Objects.equals(ownerId, userId)){
-            throw new CheckUserException("чужое");
+            throw new CheckUserException("Нельзя удалять чужие новости");
+        }
+    }
+
+    @Override
+    public  void CheckUpd (Item item, Integer ownerId)
+    {
+        User user = item.getUser();
+        Integer userId = user.getId();
+        if(!Objects.equals(ownerId, userId)){
+            throw new CheckUserException("Нельзя править чужие новости");
         }
     }
 

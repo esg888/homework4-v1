@@ -1,5 +1,6 @@
 package com.example.UsersNews.Controller;
 
+import com.example.UsersNews.Err.CheckUserException;
 import com.example.UsersNews.Err.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -32,5 +33,11 @@ public class ExceptionHandlerController {
                 .toList();
         String errorMessage = String.join("; ", errorMessages);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrResponse(errorMessage));
+    }
+
+    @ExceptionHandler(CheckUserException.class)
+    public ResponseEntity<ErrResponse> notCheck(CheckUserException ex) {
+        log.error("Ошибка", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrResponse(ex.getLocalizedMessage()));
     }
 }

@@ -12,11 +12,17 @@ public class FilterValidValidator implements ConstraintValidator<PageFilterValid
 //            return false;
 //        }
 //        return (value.getUserId() != null || value.getThemeId() == null) && (value.getUserId() == null || value.getThemeId() != null);
+//   }
+//    @Override
+//    public boolean isValid(PageFilter pf, ConstraintValidatorContext context)
+//    {
+//        return (pf.getNum() != null) && (pf.getThemeId() != null) && (pf.getSize() != null) && (pf.getUserId() != null);
 //    }
+
     @Override
     public boolean isValid(PageFilter pf, ConstraintValidatorContext context)
     {
-        return (pf.getNum() != null) && (pf.getThemeId() != null) && (pf.getSize() != null) && (pf.getUserId() != null);
+        return ((pf.getNum() != null)  && (pf.getSize() != null));
     }
 
 }

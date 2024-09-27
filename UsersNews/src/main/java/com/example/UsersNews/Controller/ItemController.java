@@ -46,17 +46,23 @@ Item item = itemsService.save(itemMapper.requestToItem(request));
        return ResponseEntity.status(HttpStatus.CREATED).body(itemMapper.itemToResponse(item));
    }
 
-@PutMapping("/{id}")
-    public ResponseEntity <ItemResponse> update (@PathVariable("id")
-     Integer itemId, @RequestBody ItemRequest request){
-Item upItem = itemsService.update(itemMapper.requestToItem(itemId, request));
+@PutMapping("/{idItem}")
+    public ResponseEntity <ItemResponse> update (@PathVariable("idItem")
+     Integer itemId, @RequestBody ItemRequest request, Integer ownerId){
+Item upItem = itemsService.update(itemMapper.requestToItem(itemId, request), ownerId);
         return ResponseEntity.ok(itemMapper.itemToResponse(upItem));
     }
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity <ItemResponse> update (@PathVariable("id")
+//                                                 Integer itemId, @RequestBody ItemRequest request){
+//        Item upItem = itemsService.update(itemMapper.requestToItem(itemId, request));
+//        return ResponseEntity.ok(itemMapper.itemToResponse(upItem));
+//    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id, Integer idOw){
-        itemsService.delete(id, idOw);
+    @DeleteMapping("/{idItem}")
+    public ResponseEntity<Void> delete(@PathVariable Integer idItem, Integer ownerId){
+        itemsService.delete(idItem, ownerId);
         return ResponseEntity.noContent().build();
     }
 

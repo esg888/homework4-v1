@@ -39,8 +39,8 @@ public class CommentaryController {
       
        @PutMapping("/{id}")
        public ResponseEntity<CommentResponse> update (@PathVariable("id") Integer commentaryId, @RequestBody CommentRequest request) {
-           Commentary ucomm = commentaryService.update(commentMapper.requestToCommentary(commentaryId, request));
-           return ResponseEntity.ok(commentMapper.commentToResponse(ucomm));
+           Commentary uComm = commentaryService.update(commentMapper.requestToCommentary(commentaryId, request));
+           return ResponseEntity.ok(commentMapper.commentToResponse(uComm));
        }
       
        @DeleteMapping("/{id}")

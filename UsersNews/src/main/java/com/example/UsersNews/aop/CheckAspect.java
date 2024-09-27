@@ -18,21 +18,19 @@ import java.util.Objects;
 public class CheckAspect {
 
     private final ItemsService itemsService;
-//    private final Integer idItem;
-//    private final Integer idOw;
-
-
-//    @Pointcut("@annotation(CheckingIt)")
-//    public void CheckPointcut(){
-//    }
 
 
 
-    @Before("@annotation(CheckingIt) && args(idItem, ownerId)")
+    @Before(value = "@annotation(CheckingIt) && args(idItem, ownerId)", argNames = "joinPoint,idItem,ownerId")
     public void CheckPointcut(JoinPoint joinPoint, Integer idItem, Integer ownerId) {
         itemsService.checkIt(idItem, ownerId);
               joinPoint.getSignature().getName();
     }
 
+    @Before(value = "@annotation(CheckingIt) && args(item, ownerId)", argNames = "joinPoint,ownerId,item")
+    public void CheckPointcutPut(JoinPoint joinPoint, Integer ownerId, Item item) {
+        itemsService.CheckUpd(item, ownerId);
+        joinPoint.getSignature().getName();
+    }
 
 }
